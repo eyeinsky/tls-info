@@ -1,0 +1,18 @@
+resolver: lts-14.14
+
+packages:
+- .
+
+extra-deps:
+- github: eyeinsky/wai
+  commit: 73b19ba3515551b40d63a034f543993944071867
+  subdirs:
+    - warp
+    - warp-tls
+- github: eyeinsky/hs-tls
+  commit: 44547ddc250616b1403b765ff5a4cf5d74361225
+  subdirs:
+    - core
+    - session
+
+- http2-2.0.3@sha256:c08885f0fd26ae035b169029b782cc693cc30e4d7a3b6f21a61de31085e8cfae,17644
