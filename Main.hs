@@ -20,10 +20,9 @@ import Control.Monad
 main :: IO ()
 main = WarpTLS.runTLS tlsSettings' Warp.defaultSettings handler
 
-handler :: WarpTLS.TLSAppInfo -> Wai.Application
-handler tlsInfo req resp = do
-  let ioRef = fromJust tlsInfo -- Always Just when using runTLS
-  maybeChain <- readIORef ioRef
+handler :: Wai.Application
+handler req resp = do
+  let maybeChain = Warp.clientCertificate req
   case maybeChain of
     Just (X509.CertificateChain (cert : _)) -> do
       putStrLn "Got cert:"
@@ -37,8 +36,8 @@ tlsSettings' :: WarpTLS.TLSSettings
 tlsSettings' = (WarpTLS.tlsSettings "cert_server_cert.pem" "cert_server_key.pem")
   { WarpTLS.tlsWantClientCert = True
   , WarpTLS.tlsServerHooks = def
-    { Network.TLS.onClientCertificate = \ chain ioref -> do
-        atomicWriteIORef ioref $ Just chain
+    { Network.TLS.onClientCertificate = \ chain -> do
+        print "onClientCertificate"
         return Network.TLS.CertificateUsageAccept
     }
   }

@@ -4,13 +4,13 @@ packages:
 - .
 
 extra-deps:
-- github: eyeinsky/wai
-  commit: 73b19ba3515551b40d63a034f543993944071867
+- github: kazu-yamamoto/wai
+  commit: d993730c5c3c72321da047a384e9aa41869c2da7
   subdirs:
     - warp
     - warp-tls
-- github: eyeinsky/hs-tls
-  commit: 44547ddc250616b1403b765ff5a4cf5d74361225
+- github: kazu-yamamoto/hs-tls
+  commit: 5926aeb47052bf1db651af3988dcfbf1517e891c
   subdirs:
     - core
     - session
